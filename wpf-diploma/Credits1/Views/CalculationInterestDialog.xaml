@@ -1,0 +1,83 @@
+﻿<Window x:Class="Credits1.Views.CalculationInterestDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Credits1.Views"
+        mc:Ignorable="d"
+        Title="Расчет и начисление процентов" Height="220" Width="250" ResizeMode="NoResize" Icon="..\Images\Interest.png"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>        
+        <Style TargetType="DatePicker">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip"
+                Value="{Binding RelativeSource={RelativeSource Self},
+                    Path=(Validation.Errors)[0].ErrorContent}" />
+                    <Setter Property="Foreground" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid Background="LightGray">
+        <GroupBox Background="LightGray" Header="Калькулятор процентов">
+            <Grid>
+                <TextBox
+                    HorizontalAlignment="Left"
+                    Height="23" Margin="10,11,0,0"
+                    TextWrapping="Wrap"
+                    VerticalAlignment="Top"
+                    Width="210"
+                    Text="{Binding CreditAgreement, Mode=TwoWay}"
+                    />
+                <DatePicker
+                    HorizontalAlignment="Left"
+                    Margin="10,51,0,0"
+                    VerticalAlignment="Top" Width="118">
+                    <DatePicker.SelectedDate>
+                        <Binding Path="StartDate" Mode="TwoWay">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </DatePicker.SelectedDate>
+                </DatePicker>
+                <DatePicker
+                    HorizontalAlignment="Left"
+                    Margin="10,80,0,0"
+                    VerticalAlignment="Top" Width="118">
+                    <DatePicker.SelectedDate>
+                        <Binding Path="EndDate" Mode="TwoWay">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </DatePicker.SelectedDate>
+                </DatePicker>            
+                <TextBox 
+                    HorizontalAlignment="Left"
+                    Height="23"
+                    Margin="10,119,0,0" 
+                    TextWrapping="Wrap"
+                    VerticalAlignment="Top"
+                    Width="118"
+                    Text="{Binding Calculation, Mode=TwoWay}"
+            />
+                <Button 
+                    Content="Рассчитать"
+                    HorizontalAlignment="Left"
+                    Margin="145,119,0,0"
+                 VerticalAlignment="Top"
+                    Width="75"
+                    Command="{Binding CalculationCommand}"/>
+                <Button
+                    Content="Начислить"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Width="75"
+                    Margin="145,51,0,0"
+                    Command="{Binding AccrueCommand}" Height="53"/>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>

@@ -1,0 +1,177 @@
+﻿<Window x:Class="Credits1.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:local="clr-namespace:Credits1"
+        xmlns:viewModel="clr-namespace:Credits1.ViewModels"
+        mc:Ignorable="d"
+        Title="Кредиты юридических лиц" Icon="..\Images\Bank.png" Height="450" Width="970" MinWidth="970" 
+        WindowStartupLocation="CenterScreen">    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="482*"/>
+            <ColumnDefinition Width="293*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" Grid.ColumnSpan="2" >
+            <MenuItem Header="Кредиты">
+                <MenuItem Header="База кредитов" Command="{Binding LoadCreditsBase}" />
+                <MenuItem Header="Регистрация кредитного договора" Command="{Binding AddCredit}" />
+                <MenuItem Header="Открыть кредитный договор" Command="{Binding CreditEdit}" />                
+            </MenuItem>
+            <MenuItem Header="Обеспечение">
+                <MenuItem Header="Договоры обеспечения" Command="{Binding CollateralWindow}" />
+                <MenuItem Header="Регистрация договора" Command="{Binding AddCollateral}" />              
+            </MenuItem>
+            <MenuItem Header="Клиенты">
+                <MenuItem Header="Регистрация клиента">
+                    <MenuItem Header="Организация" Command="{Binding AddFirm}"/>
+                    <MenuItem Header="Частный клиент" Command="{Binding AddPerson}"/>
+                </MenuItem>               
+            </MenuItem>            
+            <MenuItem Header="Начисления">
+                <MenuItem Header="Начисление процентов" Command="{Binding CalcCommand}" />                
+            </MenuItem>
+            <MenuItem Header="Мониторинг">
+                <MenuItem Header="График плановых проверок" Command="{Binding MonitoringCollateral}" />
+            </MenuItem>
+        </Menu>
+        <ToolBar Grid.Row="1" Background="LightGray" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal" Height="20">
+                <TextBlock Text="Договор: " VerticalAlignment="Center"/>
+                <TextBox 
+                    Height="20" 
+                    Margin="0" 
+                    TextWrapping="Wrap" 
+                    VerticalContentAlignment="Center" 
+                    Width="120"
+                    Text="{Binding SearchCredit, Mode=TwoWay}"                    
+                    />
+                <TextBlock 
+                    Text="Клиент: "
+                    VerticalAlignment="Center"/>
+                <TextBox 
+                    Height="20" 
+                    Margin="0" 
+                    TextWrapping="Wrap" 
+                    VerticalContentAlignment="Center" 
+                    Width="120"
+                    Text="{Binding SearchFirm, Mode=TwoWay}"/>
+                <Button 
+                    BorderBrush="LightGray" 
+                    Command="{Binding SearchCreditCommand}">
+                    <StackPanel Orientation="Horizontal">                       
+                        <TextBlock VerticalAlignment="Center">Найти</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button 
+                    BorderBrush="LightGray"                    
+                    Command="{Binding LoadCreditsBase}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="..\Images\LoadCredit.png"></Image>
+                        <TextBlock VerticalAlignment="Center">База кредитов</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button 
+                    Height="20" 
+                    BorderBrush="LightGray" 
+                    VerticalAlignment="Top" 
+                    Command="{Binding CreditEdit}" >
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="..\Images\Edit.png"/>
+                        <TextBlock VerticalAlignment="Center"> Открыть </TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button 
+                    BorderBrush="LightGray" 
+                    Command="{Binding AddCredit}" >
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="..\Images\AddCredit.png"/>
+                        <TextBlock VerticalAlignment="Center"><Run Text="Добавить кредит"/></TextBlock>
+                    </StackPanel>                    
+                </Button>
+                <Button 
+                    BorderBrush="LightGray" 
+                    Command="{Binding AddCollateral}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="..\Images\AddCollateral.png"></Image>
+                        <TextBlock VerticalAlignment="Center">Добавить обеспечение</TextBlock>
+                    </StackPanel>                  
+                </Button>                
+                <Button
+                    Height="22"
+                    BorderBrush="LightGreen"
+                    VerticalAlignment="Top"
+                    Width="92"
+                    Command="{Binding CalcCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="..\Images\Interest.png"></Image>
+                        <TextBlock VerticalAlignment="Center">Начисление</TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>            
+        </ToolBar>
+        <DataGrid 
+            Grid.Row="2"
+            Grid.ColumnSpan="2"            
+            ItemsSource="{Binding Credits}"
+            Background="LightGray"
+            AutoGenerateColumns="False"
+            IsReadOnly="True"
+            CanUserAddRows="False"            
+            SelectedItem="{Binding SelectedCredit}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction 
+                Command="{Binding CreditEdit}"
+                />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <DataGrid.Columns>
+                <DataGridTextColumn 
+                    Header="Кредитный договор"
+                    Binding="{Binding Credit_agreement}"
+                    Width="140"/>
+                <DataGridTextColumn 
+                    Header="Дата начала"
+                    Binding="{Binding Start_date, StringFormat=dd/MM/yyyy}"
+                    Width="100"/>
+                <DataGridTextColumn 
+                    Header="Дата окончания"
+                    Binding="{Binding End_date, StringFormat=dd/MM/yyyy}"
+                    Width="110"/>                
+                <DataGridTextColumn 
+                    Header="Сумма кредита"
+                    Binding="{Binding Sum}" 
+                    Width="110"/>
+                <DataGridTextColumn 
+                    Header="Код валюты"
+                    Binding="{Binding Currency.Currency_Id}"
+                    Width="90"/>
+                <DataGridTextColumn
+                    Header="Ставка, %"
+                    Binding="{Binding Rate}"
+                    Width="80"/>
+                <DataGridTextColumn 
+                    Header="Наименование клиента"
+                    Binding="{Binding FirmName}"
+                    Width="180"/>
+                <DataGridTextColumn 
+                    Header="УНП клиента"
+                    Binding="{Binding Id_Firm}"
+                    Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StatusBar Grid.Row="3" VerticalAlignment="Bottom" Grid.ColumnSpan="2" >
+            <TextBlock Text="Пользователь: "></TextBlock>
+            <TextBlock Text="{Binding UserName}"></TextBlock>
+        </StatusBar>
+    </Grid>
+</Window>

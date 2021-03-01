@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{59FF001F-B0AD-4899-BDA9-C11B68B15C7A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Credits1</RootNamespace>
+    <AssemblyName>Credits1</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net45\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.4.1.0, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Mvvm, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mvvm.1.0.4\lib\Mvvm.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Infrastructure\RelayCommand.cs" />
+    <Compile Include="Infrastructure\WindowManager.cs" />
+    <Compile Include="Models\UserClasses\Authorization.cs" />
+    <Compile Include="Models\UserClasses\CollateralInfo.cs" />
+    <Compile Include="Models\UserClasses\CollateralRegister.cs" />
+    <Compile Include="Models\UserClasses\CreditInfo.cs" />
+    <Compile Include="Models\UserClasses\MonitoringInfo.cs" />
+    <Compile Include="ViewModels\CalculationInterestDialogViewModel.cs" />
+    <Compile Include="ViewModels\CollateralWindowViewModel.cs" />
+    <Compile Include="ViewModels\MonitoringWindowViewModel.cs" />
+    <Compile Include="ViewModels\PasswordWindowViewModel.cs" />
+    <Compile Include="ViewModels\CollateralDialogViewModel.cs" />
+    <Compile Include="ViewModels\UpdateCreditDialogViewModel.cs" />
+    <Compile Include="ViewModels\UpdateMonitoringDialogViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\CalculationInterestDialog.xaml.cs">
+      <DependentUpon>CalculationInterestDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CollateralWindow.xaml.cs">
+      <DependentUpon>CollateralWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MonitoringWindow.xaml.cs">
+      <DependentUpon>MonitoringWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PasswordWindow.xaml.cs">
+      <DependentUpon>PasswordWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CollateralDialog.xaml.cs">
+      <DependentUpon>CollateralDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UpdateCreditDialog.xaml.cs">
+      <DependentUpon>UpdateCreditDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UpdateMonitoringDialog.xaml.cs">
+      <DependentUpon>UpdateMonitoringDialog.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\AddCreditDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddFirmDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddPersonDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddPropertyDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CalculationInterestDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CollateralWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\FormCollateral.cs" />
+    <Compile Include="Models\Mapping\FormCollateralMap.cs" />
+    <Compile Include="Models\Mapping\TypeCollateralMap.cs" />
+    <Compile Include="Models\TypeCollateral.cs" />
+    <Compile Include="ViewModels\AddCreditDialogViewModel.cs" />
+    <Compile Include="ViewModels\AddFirmDialogViewModel.cs" />
+    <Compile Include="ViewModels\AddPersonDialogViewModel.cs" />
+    <Compile Include="ViewModels\AddPropertyDialogViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModelcs.cs" />
+    <Compile Include="Views\AddCreditDialog.xaml.cs">
+      <DependentUpon>AddCreditDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddFirmDialog.xaml.cs">
+      <DependentUpon>AddFirmDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddPersonDialog.xaml.cs">
+      <DependentUpon>AddPersonDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddPropertyDialog.xaml.cs">
+      <DependentUpon>AddPropertyDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Views\MonitoringWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PasswordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CollateralDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UpdateCreditDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UpdateMonitoringDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Accrued_interest.cs" />
+    <Compile Include="Models\Collateral.cs" />
+    <Compile Include="Models\Credit.cs" />
+    <Compile Include="Models\CreditsFirmsContext.cs" />
+    <Compile Include="Models\Currencies_directory.cs" />
+    <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\FineOnCredit.cs" />
+    <Compile Include="Models\FineOnInterest.cs" />
+    <Compile Include="Models\Firm.cs" />
+    <Compile Include="Models\Individual.cs" />
+    <Compile Include="Models\Interest_rate.cs" />
+    <Compile Include="Models\Mapping\Accrued_interestMap.cs" />
+    <Compile Include="Models\Mapping\CollateralMap.cs" />
+    <Compile Include="Models\Mapping\CreditMap.cs" />
+    <Compile Include="Models\Mapping\Currencies_directoryMap.cs" />
+    <Compile Include="Models\Mapping\DepartmentMap.cs" />
+    <Compile Include="Models\Mapping\EmployeeMap.cs" />
+    <Compile Include="Models\Mapping\FineOnCreditMap.cs" />
+    <Compile Include="Models\Mapping\FineOnInterestMap.cs" />
+    <Compile Include="Models\Mapping\FirmMap.cs" />
+    <Compile Include="Models\Mapping\IndividualMap.cs" />
+    <Compile Include="Models\Mapping\Interest_rateMap.cs" />
+    <Compile Include="Models\Mapping\Monitoring_collateralMap.cs" />
+    <Compile Include="Models\Mapping\Overdue_interestMap.cs" />
+    <Compile Include="Models\Mapping\Overdue_principal_debtMap.cs" />
+    <Compile Include="Models\Mapping\Principal_balanceMap.cs" />
+    <Compile Include="Models\Mapping\PropertyMap.cs" />
+    <Compile Include="Models\Mapping\sysdiagramMap.cs" />
+    <Compile Include="Models\Monitoring_collateral.cs" />
+    <Compile Include="Models\Overdue_interest.cs" />
+    <Compile Include="Models\Overdue_principal_debt.cs" />
+    <Compile Include="Models\Principal_balance.cs" />
+    <Compile Include="Models\Property.cs" />
+    <Compile Include="Models\sysdiagram.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\About.png" />
+    <Resource Include="Images\AddCollateral.png" />
+    <Resource Include="Images\AddCredit.png" />
+    <Resource Include="Images\AddFirm.png" />
+    <Resource Include="Images\Bank.png" />
+    <Resource Include="Images\Delete.png" />
+    <Resource Include="Images\Edit.png" />
+    <Resource Include="Images\Export.png" />
+    <Resource Include="Images\LoadCredit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Interest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Authorization.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
