@@ -1,0 +1,24 @@
+﻿@model Claims_App.ViewModels.AddUserViewModel
+
+<h2>Add a new user</h2>
+<form method="post" asp-controller="Account" asp-action="AddUser">    
+    <div>
+        <label asp-for="Email"></label><br />
+        <input asp-for="Email" />        
+    </div>  
+    <div>
+        <label asp-for="Country"></label><br />
+        <input asp-for="Country" />
+    </div>
+    <div>
+        <label asp-for="Password"></label><br />
+        <input asp-for="Password" />        
+    </div>
+    <div>
+        <label asp-for="PasswordConfirm"></label><br />
+        <input asp-for="PasswordConfirm" />        
+    </div>
+    <div>
+        <input type="submit" value="Add" />
+    </div>
+</form>

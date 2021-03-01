@@ -1,0 +1,12 @@
+﻿@using DataTransfer_App.DAL.Entities
+@model Purchase
+
+<form method="post">    
+    <p>
+        <label asp-for="Name">Введите наименование: </label><br />
+        <input asp-for="Name" />
+    </p>
+    <p>
+        <input type="submit" value="Отправить" />
+    </p>
+</form>

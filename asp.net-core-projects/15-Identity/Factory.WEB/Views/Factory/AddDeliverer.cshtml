@@ -1,0 +1,11 @@
+﻿@model Factory.BLL.BusinessModels.DelivererModel
+
+<form action="AddDeliverer" method="post">
+    <p>
+        <label asp-for="DelivererName">Введите наименование поставщика: </label>
+        <input asp-for="DelivererName" />
+    </p>
+    <p>
+        <input type="submit" value="Отправить" />
+    </p>
+</form>

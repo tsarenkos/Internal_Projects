@@ -1,0 +1,13 @@
+﻿@model IEnumerable<string>
+
+@{
+    ViewData["Title"] = "List of Roles";
+}
+
+<h2>List of Roles</h2>
+<ul>
+    @foreach(var item in Model)
+    {
+        <li>@item</li>
+    }
+</ul>

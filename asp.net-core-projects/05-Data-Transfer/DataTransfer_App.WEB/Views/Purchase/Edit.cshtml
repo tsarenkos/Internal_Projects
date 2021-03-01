@@ -1,0 +1,7 @@
+﻿@using DataTransfer_App.DAL.Entities
+@model Purchase
+
+<form asp-controller="Purchase" asp-action="Edit" asp-route-id="@Model.Id" method="post">
+    Name: <input asp-for="Name" /><br />
+    <input type="submit" value="Отправить" />
+</form>

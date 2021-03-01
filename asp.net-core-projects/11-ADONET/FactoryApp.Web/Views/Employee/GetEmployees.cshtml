@@ -1,0 +1,25 @@
+﻿@model IEnumerable<FactoryApp.BLL.BusinessModels.EmployeeModel>
+
+@{
+    ViewData["Title"] = "List of Employees";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Position</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.EmployeeId</td>
+                <td>@item.Name</td>
+                <td>@item.Position</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,23 @@
+﻿@model Factory.BLL.BusinessModels.RequestModel
+
+<form method="post">
+    <p>
+        <label asp-for="RequestCreatorId">Код инициатора заявки: </label>
+        <input asp-for="RequestCreatorId" />
+    </p>
+    <p>
+        <label asp-for="RequestHandlerId">Код исполнителя заявки: </label>
+        <input asp-for="RequestHandlerId" />
+    </p>
+    <p>
+        <label asp-for="MachineId">Оборудование, требующее замены/ремонта: </label>
+        <select asp-for="MachineId" asp-items="ViewBag.Machines"></select>
+    </p>
+    <p>
+        <label asp-for="InnerRequestId">Код внутренней заявки (при наличии): </label>
+        <input asp-for="InnerRequestId" />
+    </p>
+    <p>
+        <input type="submit" value="Отправить" />
+    </p>
+</form>

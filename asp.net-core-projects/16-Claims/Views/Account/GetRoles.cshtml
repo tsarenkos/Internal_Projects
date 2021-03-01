@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>
+
+@{
+    ViewData["Title"] = "List of Roles";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>NormalizedName</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var role in Model)
+        {
+            <tr>
+                <td>@role.Name</td>
+                <td>@role.NormalizedName</td>
+            </tr>
+        }
+    </tbody>
+</table>

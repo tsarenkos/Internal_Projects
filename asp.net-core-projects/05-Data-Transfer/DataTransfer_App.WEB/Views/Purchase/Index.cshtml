@@ -1,0 +1,42 @@
+﻿@using DataTransfer_App.DAL.Entities
+@model IEnumerable<Purchase>
+
+<form>
+    <button asp-controller="Purchase" asp-action="Add">Add new Purchase</button>
+</form>
+
+<br />
+
+<table class="table">
+    <tr>
+        <td>Идентификатор</td>
+        <td>Наименование</td>
+        <td>Дата создания</td>
+        <td>Дата редактирование</td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.DateCreate</td>
+            <td>
+                @if (item.DateEdit != item.DateCreate)
+                {
+                    @item.DateEdit;
+                }
+                else
+                {
+                    <span>Not edited</span>
+
+                }
+            </td>
+            <td>
+                <a asp-controller="Purchase" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+            </td>
+            <td>
+                <a asp-controller="Purchase" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+    }
+</table>

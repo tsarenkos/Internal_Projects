@@ -1,0 +1,16 @@
+﻿@model Claims_App.ViewModels.AddUserToRoleViewModel
+
+<h2>Add role for user</h2>
+<form method="post" asp-controller="Account" asp-action="AddUserToRole">
+    <div>
+        <label asp-for="UserId"></label><br />
+        <select asp-for="UserId" asp-items="ViewBag.Users"></select>
+    </div>
+    <div>
+        <label asp-for="RoleName"></label><br />
+        <select asp-for="RoleName" asp-items="ViewBag.Roles"></select>
+    </div>    
+    <div>
+        <input type="submit" value="Add" />
+    </div>
+</form>
