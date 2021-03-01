@@ -1,0 +1,88 @@
+﻿@using System.Web
+@model TaskTracker.Web.Models.ProfileViewModel
+
+@{
+    ViewData["Title"] = "Профиль пользователя";
+}
+
+<h1>Профиль пользователя</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Update" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <img id="preview" src="@(Model.HasPhoto?"/profile/photo":"#")" style="max-width:250px;max-height:250px@(Model.HasPhoto?"":";display:none")" />
+                <br /><br /><div class="row">
+                    <div class="col-md-5" id="delbtn" style="@(!Model.HasPhoto?"display:none":"")">
+                        <input type="button" class="btn btn-primary" value="Удалить" onclick="if (confirm('Удалить?')) { $('#delPhoto').val('true'); $('#preview').hide(); $('#uploadedFile').val(''); $('#delbtn').hide(); } " />
+                        <input type="hidden" name="delPhoto" id="delPhoto" value="false" />
+                        <input type="hidden" asp-for="HasPhoto" />
+                    </div>
+                    <div class="col-md-5">
+                        <input type="file" name="uploadedFile" id="uploadedFile" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FamilyName" class="control-label"></label>
+                <input asp-for="FamilyName" class="form-control" />
+                <span asp-validation-for="FamilyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Patronymic" class="control-label"></label>
+                <input asp-for="Patronymic" class="form-control" />
+                <span asp-validation-for="Patronymic" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="telephone" class="control-label"></label>
+                <input asp-for="telephone" class="form-control" />
+                <span asp-validation-for="telephone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+               reader.onload = function(e) {
+                    $('#preview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+
+        $("#uploadedFile").change(function () {
+            readURL(this);
+            $('#delPhoto').val('false');
+            $('#preview').show();
+            $('#delbtn').show();
+        });
+
+        @if(ViewData.ContainsKey("ok"))
+        {
+            @:alert("Профиль обновлен.");
+        }
+    </script>
+}

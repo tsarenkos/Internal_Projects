@@ -1,0 +1,15 @@
+﻿@model TaskTracker.Web.Models.SubTaskViewModel
+
+<h1>Добавление подзадачи</h1>
+<form asp-action="AddSubTask" asp-controller="MyTask" method="post">
+    <div hidden class="form-group">
+        <label asp-for="ParentTaskId">Задача:</label>
+        <input asp-for="ParentTaskId">
+    </div>
+    <div class="form-group">
+        <label asp-for="SubTaskId">Выберите подзадачу:</label>
+        <select asp-items="ViewBag.SubTasks" asp-for="SubTaskId"></select>
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+    &nbsp;&nbsp;<input type="button" class="btn btn-primary" onclick="location.href='../../MyTask/Update/@Model.ParentTaskId'" value="Отмена">
+</form>

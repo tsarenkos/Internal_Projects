@@ -1,0 +1,38 @@
+﻿@model TaskTracker.Web.Models.IndexMyTaskViewModel
+
+<p>
+    <a asp-action="Create" asp-controller="MyTask" class="btn btn-primary">Добавить задачу</a>
+</p>
+
+<div class="dropdown">
+    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Задачи
+    </a>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" asp-action="Index" asp-controller="MyTask">Все</a>
+        <a class="dropdown-item" asp-action="Index" asp-controller="MyTask" asp-route-start="@System.DateTime.Today.ToShortDateString()">На сегодня</a>
+        <a class="dropdown-item" asp-action="Index" asp-controller="MyTask" asp-route-start="@System.DateTime.Today.AddDays(1).ToShortDateString()">На завтра</a>
+        <a class="dropdown-item" asp-action="Index" asp-controller="MyTask" asp-route-start="@System.DateTime.Today.ToShortDateString()" asp-route-end="@System.DateTime.Today.AddDays(7).ToShortDateString()">На неделю</a>
+        <a class="dropdown-item" asp-action="Index" asp-controller="MyTask" asp-route-delay="true">Просрочено</a>
+        <a class="dropdown-item" asp-action="Index" asp-controller="MyTask" asp-route-completed="true">Завершены</a>
+    </div>
+</div>
+<br />
+
+<p>Выбрать за период</p>
+<form asp-action="Index" asp-controller="MyTask">
+    <div class="form-group">
+        <input asp-for="@Model.StartDate" type="date" name="start" id="start" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>по</label>
+        <input asp-for="@Model.EndDate" type="date" name="end" id="end" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Выбрать</button>
+</form>
+
+
+
+
+
+

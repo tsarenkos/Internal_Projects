@@ -1,0 +1,68 @@
+﻿@model FriendRequestsViewModel
+
+<h1>Мои запросы</h1>
+<div class="container friends">
+@if (Model.myFriendRequests.Any())
+{
+    @foreach (FriendViewModel item in Model.myFriendRequests)
+    {
+    <div class="row">
+        <div class="col-md-1">
+            @if (!string.IsNullOrWhiteSpace(item.Photo))
+            {
+                <img src="/profile/photo/@item.Photo">
+            }
+        </div>
+        <div class="col-md-4">
+            @if (!string.IsNullOrWhiteSpace(item.FamilyName))
+            {
+                @string.Format("{0} {1} ({2})", item.FamilyName, item.Name, item.UserName)
+            }
+            else
+            {
+                @item.UserName
+            }
+            <br />направлен @item.AddDate.ToString("dd.MM.yyyy")
+            </div>
+        </div>
+        }
+        }
+        else
+        {
+        <text>На данный момент запросов нет</text>
+        }
+    </div>
+    <hr/>
+    <h2>Добавление в друзей</h2>
+    <div class="container friends">
+        <form method="post">
+            @foreach (FriendViewModel item in Model.nonfriends)
+            {
+                <div class="row">
+                    <div class="col-md-1">
+                        @if (!string.IsNullOrWhiteSpace(item.Photo))
+                        {
+                            <img src="/profile/photo/@item.Photo">
+                        }
+                    </div>
+                    <div class="col-md-4">
+                        @if (!string.IsNullOrWhiteSpace(item.FamilyName))
+                        {
+                            @string.Format("{0} {1} ({2})", item.FamilyName, item.Name, item.UserName)
+                        }
+                        else
+                        {
+                            @item.UserName
+                        }
+                        <br />
+                        <input type="submit" formaction="/Friends/Request/@item.FriendId" class="btn btn-primary" value="Добавить" />
+                    </div>
+                </div>
+            }
+        </form>
+        <br />
+        <br />
+        <form method="get">
+            <input type="submit" formaction="/Friends" class="btn btn-primary" value="Назад" />
+        </form>
+    </div>

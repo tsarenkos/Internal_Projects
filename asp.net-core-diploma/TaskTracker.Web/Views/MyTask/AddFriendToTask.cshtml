@@ -1,0 +1,15 @@
+﻿@model TaskTracker.Web.Models.MyTaskWithFriendViewModel
+
+<h1>Добавить друга к задаче</h1>
+<form asp-action="AddFriendToTask" asp-controller="MyTask" method="post">
+    <div hidden class="form-group">
+        <label asp-for="TaskId">Друзья:</label>
+        <input asp-for="TaskId">
+    </div>
+    <div class="form-group">
+        <label asp-for="FriendId">Выберите друга:</label>
+        <select asp-items="ViewBag.UserFriends" asp-for="FriendId"></select>
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+    &nbsp;&nbsp;<input type="button" class="btn btn-primary" onclick="location.href='../../MyTask/Update/@Model.TaskId'" value="Отмена">
+</form>

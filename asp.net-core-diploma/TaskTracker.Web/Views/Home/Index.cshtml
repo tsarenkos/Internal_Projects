@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Домашняя страница";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Добро пожаловать!</h1>
+    <div><img src="/pictures/tasktrackerlogo.png" class="img-fluid" /></div>
+    @if (Context.Request.Cookies.ContainsKey("UserName"))
+    {
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-md-2">
+                    <a href="/MyTask/Index"><b>Мои задачи</b></a>
+                </div>
+                <div class="col-md-2">
+                    <a href="/Profile">Мой профиль</a>
+                </div>
+                <div class="col-md-2">
+                    <a href="/Friends">Мои друзья</a>
+                </div>
+                <div class="col-md-2">
+                    <a href="Account/ChangePassword">Смена пароля</a>
+                </div>
+                <div class="col-md-2">
+                    <a href="/Account/Logout">Выход</a>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+    <p>Для продолжения вам необходимо <a href="/Account/Login"><b>авторизоваться</b></a>.</p>
+    <br/>
+    <p>Если вы первый раз зашли к нам в приложение, Вам необходимо <a href="/Account/Register"><b>зарегистрироваться</b></a></p>
+    }
+</div>

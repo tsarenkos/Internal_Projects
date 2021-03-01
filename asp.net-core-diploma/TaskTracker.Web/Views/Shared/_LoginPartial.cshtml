@@ -1,0 +1,33 @@
+﻿@using Microsoft.AspNetCore.Http.Extensions
+
+<ul class="navbar-nav">
+    @if (Context.Request.Cookies.ContainsKey("UserName"))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" href="/MyTask/Index">Мои задачи</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" href="/Friends">Мои друзья</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" href="/Profile">Профиль "@Context.Request.Cookies["UserName"]"</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" href="/Account/ChangePassword">Смена пароля</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-dark" href="/Account/Logout">Выход</a>
+        </li>
+
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" href="/Account/Register">Регистрация</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" href="/Account/Login?ReturnUrl=@Context.Request.Path">Войти</a>
+        </li>
+    }
+</ul>

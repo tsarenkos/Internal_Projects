@@ -1,0 +1,71 @@
+﻿@model TaskTracker.Web.Models.MyTaskViewModel
+
+<div class="row">
+    <p>
+        <h1>Добавление новой задачи</h1>
+    </p>    
+</div>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <form asp-action="Create" asp-controller="MyTask" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label asp-for="Name">Задача:</label>
+                    <input asp-for="Name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label asp-for="TargetDate">Срок завершения:</label>
+                    <input asp-for="TargetDate" type="date" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label asp-for="Details">Описание:</label>
+                    <input asp-for="Details" class="form-control">
+                </div>
+                <div class="form-group form-check">
+                    <input id="check" asp-for="IsRepeating" class="form-check-input">
+                    <label asp-for="IsRepeating" class="form-check-label">Повторяемая</label>
+                </div>
+                <div class="form-group">
+                    <label>Повторять каждые: </label>
+                    <input disabled type="number" asp-for="Multiplier" name="Multiplier">
+                    <select disabled asp-items="ViewBag.Repeat" asp-for="PeriodCode" name="PeriodCode"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TaskСategoryId">Категория задачи:</label>
+                    <select asp-items="ViewBag.Categories" asp-for="TaskСategoryId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TaskPriorityId">Приоритет задачи:</label>
+                    <select asp-items="ViewBag.Priorities" asp-for="TaskPriorityId"></select>
+                </div>
+                <br />
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+                &nbsp;&nbsp;<button type="submit" value="Cancel" name="Cancel" class="btn btn-primary"
+                                    formaction="/MyTask/Index" onclick="return confirm('Несохраненные изменения будут утеряны. Уйти со страницы?')">
+                    Отмена
+                </button>
+            </form>
+        </div>
+        <div class="col-md-3">
+            @await Html.PartialAsync("Files")
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('change', function () {
+        var item = event.target
+
+        if (item.tagName === 'INPUT' && item.type === 'checkbox') {
+            if ($('input[name="Multiplier"]').prop('disabled') === true
+                && $('select[name="PeriodCode"]').prop('disabled') === true) {
+                $('input[name="Multiplier"]').prop('disabled', false);
+                $('select[name="PeriodCode"]').prop('disabled',false)
+            } else {
+                $('input[name="Multiplier"]').prop('disabled', true);
+                $('select[name="PeriodCode"]').prop('disabled', true)
+            }
+        }
+    })
+</script>

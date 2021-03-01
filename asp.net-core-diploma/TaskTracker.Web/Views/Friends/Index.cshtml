@@ -1,0 +1,113 @@
+﻿@model TaskTracker.Web.Models.FriendsViewModel
+
+<h1>Друзья</h1>
+<h2>Запросы на редактирование задач</h2>
+<div class="container friends">
+    @if (Model.editRequests.Any())
+    {
+        <form method="post">
+            @foreach (FriendEditRequestViewModel item in Model.editRequests)
+            {
+                <div class="row">
+                    <div class="col-md-1">
+                        @if (!string.IsNullOrWhiteSpace(item.Photo))
+                        {
+                            <img src="profile/photo/@item.Photo">
+                        }
+                    </div>
+                    <div class="col-md-3">
+                        @if (!string.IsNullOrWhiteSpace(item.FamilyName))
+                        {
+                            @string.Format("{0} {1} ({2})", item.FamilyName, item.Name, item.UserName)
+                        }
+                        else
+                        {
+                            @item.UserName
+                        }
+                        <br />направлен @item.AddDate.ToString("dd.MM.yyyy")
+                    </div>
+                    <div class="col-md-4">
+                        &nbsp; &nbsp;<input type="submit" asp-route-taskId="@item.TaskId" asp-route-friendId="@item.FriendId" asp-action="FriendEditRequestAccept" asp-controller="Friends"
+                                            class="btn btn-primary" value="Принять" />
+                        &nbsp; &nbsp;<input type="submit" asp-route-taskId="@item.TaskId" asp-route-friendId="@item.FriendId"
+                                            asp-action="FriendEditRequestDeny" asp-controller="Friends" class="btn btn-primary" value="Отклонить" />
+                    </div>
+                </div>
+            }
+        </form>
+    }
+    else
+    {
+        <text>Нет запросов на на редактирование задач</text>
+    }
+</div>
+<hr />
+<h2>Запросы на добавление в друзья</h2>
+<div class="container friends">
+    @if (Model.friendRequests.Any())
+    {
+        <form method="post">
+            @foreach (FriendViewModel item in Model.friendRequests)
+            {
+                <div class="row">
+                    <div class="col-md-1">
+                        @if (!string.IsNullOrWhiteSpace(item.Photo))
+                        {
+                            <img src="profile/photo/@item.Photo">
+                        }
+                    </div>
+                    <div class="col-md-3">
+                        @if (!string.IsNullOrWhiteSpace(item.FamilyName))
+                        {
+                            @string.Format("{0} {1} ({2})", item.FamilyName, item.Name, item.UserName)
+                        }
+                        else
+                        {
+                            @item.UserName
+                        }
+                        <br />направлен @item.AddDate.ToString("dd.MM.yyyy")
+                    </div>
+                    <div class="col-md-4">
+                        &nbsp; &nbsp;<input type="submit" formaction="/Friends/Accept/@item.FriendId" class="btn btn-primary" value="Принять" />
+                        &nbsp; &nbsp;<input type="submit" formaction="/Friends/Decline/@item.FriendId" class="btn btn-primary" value="Отклонить" />
+                    </div>
+                </div>
+            }
+        </form>
+    }
+    else
+    {
+        <text>Нет запросов на добавление в друзья</text>
+    }
+</div>
+<hr />
+<h2>Мои друзья</h2>
+<div class="container friends">
+    @foreach (FriendViewModel item in Model.friends)
+    {
+        <div class="row">
+            <div class="col-md-1">
+                @if (!string.IsNullOrWhiteSpace(item.Photo))
+                {
+                    <img src="profile/photo/@item.Photo">
+                }
+            </div>
+            <div class="col-md-3">
+                @if (!string.IsNullOrWhiteSpace(item.FamilyName))
+                {
+                    @string.Format("{0} {1} ({2})", item.FamilyName, item.Name, item.UserName)
+                }
+                else
+                {
+                    @item.UserName
+                }
+                <br />Друзья с @item.AddDate.ToString("dd.MM.yyyy")
+            </div>
+        </div>
+    }
+    <div class="row">
+        <form method="get">
+            <input type="submit" formaction="/Friends/Request" class="btn btn-primary" value="Добавить" />
+        </form>
+    </div>
+</div>

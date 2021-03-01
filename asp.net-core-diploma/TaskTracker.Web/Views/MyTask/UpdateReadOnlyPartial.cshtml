@@ -1,0 +1,130 @@
+﻿@model TaskTracker.Web.Models.MyTaskViewModel
+
+<div class="row">
+    <div class="col-md-9">
+        <p>
+            <h1>Страница задачи</h1>
+        </p>        
+    </div>
+    <div class="col-md-3">
+        <a asp-action="AddEditGrantRequest" asp-controller="MyTask" asp-route-id="@Model.Id" class="btn btn-outline-primary"
+           onclick="return confirm('Отправить запрос на редактирование задачи?')">Запросить редактирование</a>
+    </div>
+</div>
+<br />
+<form asp-action="Update" asp-controller="MyTask" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="btn-group-vertical" role="group" aria-label="Button group with nested dropdown">
+                <a class="btn btn-primary">Добавить подзадачу</a>
+                <div class="btn-group" role="group">
+                    <button disabled id="btnGroupDrop2" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Подзадачи
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                        @foreach (var item in Model.SubTasks)
+                        {
+                            <a asp-action="Update" asp-controller="MyTask" asp-route-id="@item.Id" class="dropdown-item">@item.Name</a>
+                        }
+                    </div>
+                </div>
+                &nbsp;&nbsp;
+                <div class="btn-group" role="group">
+                    <button disabled id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Завершить
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        <a class="dropdown-item" asp-action="Complete" asp-controller="MyTask" asp-route-id="@Model.Id">Текущую задачу</a>
+                        <a class="dropdown-item" asp-action="Complete" asp-controller="MyTask" asp-route-id="@Model.Id" asp-route-all="true">Задачу и все повторы</a>
+                    </div>
+                </div>
+                <a class="btn btn-outline-secondary">Удалить</a>
+            </div>
+            <br />
+
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Name">Задача:</label>
+                <input readonly asp-for="Name" class="form-control">
+            </div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="TargetDate">Срок завершения:</label>
+                <input readonly asp-for="TargetDate" type="date" class="form-control">
+            </div>
+            <div class="form-group">
+                <label asp-for="Details">Описание:</label>
+                <input required readonly asp-for="Details" class="form-control">
+            </div>
+            <div class="form-group form-check">
+                <input disabled id="check" asp-for="IsRepeating" class="form-check-input" name="IsRepeating">
+                <label asp-for="IsRepeating" class="form-check-label">Повторяемая</label>
+            </div>
+            <div class="form-group">
+                <label>Повторять каждые: </label>
+                <input readonly type="number" asp-for="Multiplier" name="Multiplier">
+                <select disabled asp-items="ViewBag.Repeat" asp-for="PeriodCode" name="PeriodCode"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TaskСategoryId">Категория задачи:</label>
+                <select disabled asp-items="ViewBag.Categories" asp-for="TaskСategoryId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TaskPriorityId">Приоритет задачи:</label>
+                <select disabled asp-items="ViewBag.Priorities" asp-for="TaskPriorityId"></select>
+            </div>
+            <input hidden asp-for="ParentTaskId" />
+            <div class="form-group">
+                <button disabled type="submit" value="Update" name="Update" class="btn btn-primary" formaction="/MyTask/Update/@Model.Id">Сохранить</button>
+                &nbsp;&nbsp;<button type="submit" value="Cancel" name="Cancel" class="btn btn-primary"
+                                    formaction="/MyTask/Index" onclick="return confirm('Несохраненные изменения будут утеряны. Уйти со страницы?')">
+                    Отмена
+                </button>
+            </div>
+        </div>
+        <div class="col-md-3">
+            @await Html.PartialAsync("ReadOnlyFiles")
+            <br />
+
+            <div class="btn-group-vertical" role="group" aria-label="Button group with nested dropdown">
+                <a class="btn btn-primary">Добавить друга</a>
+                <div class="btn-group" role="group">
+                    <button disabled id="btnGroupDrop2" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Участники задачи
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                        @*@foreach (var item in Model.SubTasks)
+                            {
+                                <a asp-action="Update" asp-controller="MyTask" asp-route-id="@item.Id" class="dropdown-item">@item.Name</a>
+                            }*@ 
+                    </div>
+                </div>
+            </div>
+            <br />
+
+        </div>
+    </div>
+</form>
+
+<script>
+    if ($('input[name="IsRepeating"]').prop('checked') === false) {
+        $('input[name="Multiplier"]').prop('disabled', true);
+        $('select[name="PeriodCode"]').prop('disabled', true)
+    }
+
+    document.addEventListener('change', function () {
+        var item = event.target
+
+        if (item.tagName === 'INPUT' && item.type === 'checkbox') {
+            if ($('input[name="Multiplier"]').prop('disabled') === true
+                && $('select[name="PeriodCode"]').prop('disabled') === true) {
+                $('input[name="Multiplier"]').prop('disabled', false);
+                $('select[name="PeriodCode"]').prop('disabled', false)
+            } else {
+                $('input[name="Multiplier"]').prop('disabled', true);
+                $('select[name="PeriodCode"]').prop('disabled', true)
+            }
+        }
+    })
+</script>

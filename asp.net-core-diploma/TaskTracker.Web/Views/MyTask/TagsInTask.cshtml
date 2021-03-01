@@ -1,0 +1,22 @@
+﻿@model TaskTracker.Web.Models.MyTaskViewModel
+@{
+    ViewData["Title"] = "Теги";
+}
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="./js/jquery.sumoselect.min.js"></script>
+<link href="./css/sumoselect.css" rel="stylesheet">
+
+<h1> TAGS</h1>
+
+<asp:ListBox runat="server" SelectionMode="Multiple" >
+    <asp:ListItem Text="test1"></asp:ListItem>
+    <asp:ListItem Text="test2"></asp:ListItem>
+    <asp:ListItem Text="test3"></asp:ListItem>
+</asp:ListBox>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(<%=lstBoxTest.ClientID%>).SumoSelect({ selectAll: true });
+    });
+</script>

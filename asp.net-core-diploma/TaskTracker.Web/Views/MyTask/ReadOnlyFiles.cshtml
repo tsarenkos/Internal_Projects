@@ -1,0 +1,30 @@
+﻿@model TaskTracker.Web.Models.MyTaskViewModel
+@{
+    ViewData["Title"] = "Добавление файла";
+}
+<h3>Файлы к задаче</h3>
+@if (Model != null)
+{
+    <br />
+    <h3>Все файлы</h3>
+    <table class="table">
+        <tr>
+            <td><span style="font-weight:bold">Имя файла</span></td>
+            <td><span style="font-weight:bold">Просмотр</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+        @if (Model.files != null)
+        {
+            for (int i = 0; i < Model.files.Count; i++)
+            {
+                <tr id="tr_@i">
+                    <td>@Model.files[i].FileName</td>
+                    <td><a href="/files/@Model.Id/@Model.files[i].FileName" target="blank">Просмотр</a></td>
+                    <td><input type="hidden" asp-for="files[i].Id" /><input type="hidden" asp-for="files[i].Deleted" /></td>
+                </tr>
+            }
+        }
+    </table>
+    <br />
+}

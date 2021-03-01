@@ -1,0 +1,139 @@
+﻿@model TaskTracker.Web.Models.IndexMyTaskViewModel
+
+@addTagHelper *, TaskTracker.Web
+
+<div class="row">
+    <div class="col-md-8">
+        <p>
+            <h1>Список моих задач</h1>
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-7">
+        <form class="form-inline" asp-action="Index" asp-controller="MyTask">
+            <div class="form-group" hidden>
+                <input asp-for="@Model.StartDate" name="start" />
+                <input asp-for="@Model.EndDate" name="end" />
+                <input asp-for="@Model.Delay" name="delay" />
+            </div>
+            <div class="form-group">
+                <label>Категория </label>&nbsp;
+                <select asp-for="@Model.CategoryId" asp-items="ViewBag.Categories" name="categoryId" id="categoryId"></select>&nbsp;
+            </div>
+            <div class="form-group">
+                <label>Приоритет </label>&nbsp;
+                <select asp-for="@Model.PriorityId" asp-items="ViewBag.Priorities" name="priorityId" id="priorityId"></select>
+            </div>&nbsp;
+            <div class="form-group">
+                <button type="submit" class="btn btn-outline-secondary">Фильтр</button>&nbsp;<button type="submit" class="btn btn-outline-secondary" onclick="$('select#categoryId').val('');$('select#priorityId').val('');">Сбросить</button>
+            </div>&nbsp;
+        </form>
+    </div>
+    <div class="col-md-3">
+        <form asp-action="Index" asp-controller="MyTask">
+            <div class="input-group mb-3">
+                <input type="text" name="pattern" id="pattern" class="form-control" placeholder="Найти задачу или #тег" aria-label="Найти задачу" aria-describedby="button-addon">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon">Найти</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-3">
+        @await Html.PartialAsync("MyTaskMenu")
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            @foreach (var item in Model.MyTasks)
+            {
+                <div class="col-md-3">
+                    <div class="card @{
+                        if (item.IsFriendTask)
+                        {
+                            @:text-white border-success bg-success 
+                        }
+                        else
+                        {
+                            switch (item.TaskPriorityId)
+                            {
+                                case 4:
+                                    @:text-white border-danger bg-danger
+                                    break;
+                                case 3:
+                                    @:text-white border-warning bg-warning
+                                    break;
+                                case 2:
+                                    @:text-white border-info bg-info
+                                    break;
+                                default:
+                                    @:border-light bg-light
+                                        break;
+                                }
+                            }
+                        }" style="width: 12rem;">
+                        <div class="card-header">
+                            @if (item.IsFriendTask)
+                            {
+                                @:Задача друга
+                            }
+                            else
+                            {
+                                @switch (item.TaskPriorityId)
+                                {
+                                    case 4:
+                                        @:Критический
+                                        break;
+                                    case 3:
+                                        @:Высокий
+                                        break;
+                                    case 2:
+                                        @:Низкий
+                                        break;
+                                    default:
+                                        @:Обычный
+                                        break;
+                                }
+                            }
+                        </div>
+                        <img src="~/pictures/task.png" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">@item.TargetDate.Date.ToShortDateString()</h6>
+                            <p class="card-text">@item.Details</p>
+                            @if (item.EndDate == null)
+                            {
+                                <a asp-action="Update" asp-controller="MyTask" asp-route-id="@item.Id" class="btn btn-primary">Подробнее</a>
+                            }
+                            else
+                            {
+                                <button disabled class="btn btn-primary">Подробнее</button>
+                            }
+                            @await Html.PartialAsync("Tags", item)
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <br />   
+        <page-link page-model="Model.PageViewModel" page-action="Index"
+                   page-url-start="@Model.StartDate?.Date.ToShortDateString()" 
+                   page-url-end="@Model.EndDate?.Date.ToShortDateString()" 
+                   page-url-delay="@Model.Delay" page-url-completed="@Model.Completed"
+                   page-url-pattern="@Model.Pattern" page-url-categoryId="@Model.CategoryId" page-url-priorityId="@Model.PriorityId"></page-link>
+    </div>
+</div>
+
+
+
+
+
+
+
+
