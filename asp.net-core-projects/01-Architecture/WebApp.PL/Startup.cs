@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebApp.BL;
+using Autofac;
+using WebApp.BL.Infrastructure;
 
 namespace WebApp.PL
 {
@@ -20,6 +22,11 @@ namespace WebApp.PL
         {
             services.AddScoped<ICountryService, CountryService>();
             services.AddControllersWithViews();
+        }
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterModule(new AutofacModule());
         }
        
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -43,6 +50,11 @@ namespace WebApp.PL
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "country",
+                    pattern: "country",
+                    defaults: new { controller = "Country", action = "GetCountry" });
             });
         }
     }

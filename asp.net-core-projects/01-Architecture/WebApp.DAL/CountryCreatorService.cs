@@ -5,9 +5,10 @@ namespace WebApp.DAL
 {
     public class CountryCreatorService:ICountryCreatorService
     {
-        public CountryEntity Get()
+        private const string Country = "Brazil";
+        public CountryEntity GetCountryEntity()
         {
-            return new CountryEntity { Name = "Brazil" };
+            return new CountryEntity { Name = Country };
         }
     }
 }

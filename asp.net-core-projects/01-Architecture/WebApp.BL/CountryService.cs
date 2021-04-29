@@ -1,17 +1,23 @@
 ﻿using WebApp.BL.BusinessModels;
-using WebApp.DAL;
 using WebApp.DAL.Entities;
+using WebApp.DAL.Interfaces;
 
 namespace WebApp.BL
 {
     public class CountryService:ICountryService
     {
         private const string Postfix = " BL";
-        public Country Get()
+
+        private readonly ICountryCreatorService countryService;
+        public CountryService(ICountryCreatorService countryService)
         {
-            CountryEntity countryEntity = new CountryCreatorService().Get();
-            Country country = new Country();
-            country.Name = countryEntity.Name + Postfix;
+            this.countryService = countryService;
+        }
+        public Country GetCountry()
+        {
+            CountryEntity countryEntity = countryService.GetCountryEntity();
+            Country country = new Country() { Name = countryEntity.Name + Postfix };
+
             return country;
         }
     }

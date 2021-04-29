@@ -4,6 +4,6 @@ namespace WebApp.DAL.Interfaces
 {
     public interface ICountryCreatorService
     {
-        CountryEntity Get();
+        CountryEntity GetCountryEntity();
     }
 }

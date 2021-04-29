@@ -9,16 +9,15 @@ namespace WebApp.PL.Controllers
     {
         private const string Postfix = " PL";
 
-        ICountryService countryService;
+        private readonly ICountryService countryService;
         public CountryController(ICountryService _countryService)
         {
             countryService = _countryService;
         }
-        public IActionResult Index()
+        public IActionResult GetCountry()
         {
-            Country country = countryService.Get();
-            CountryModel countryModel = new CountryModel();
-            countryModel.Name = country.Name + Postfix;
+            Country country = countryService.GetCountry();
+            CountryModel countryModel = new CountryModel() { Name = country.Name + Postfix };
 
             return Content(countryModel.Name);
         }

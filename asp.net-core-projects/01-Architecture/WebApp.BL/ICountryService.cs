@@ -4,6 +4,6 @@ namespace WebApp.BL
 {
     public interface ICountryService
     {
-        Country Get(); 
+        Country GetCountry(); 
     }
 }
