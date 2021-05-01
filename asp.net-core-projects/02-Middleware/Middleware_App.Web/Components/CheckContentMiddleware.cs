@@ -1,35 +1,33 @@
-﻿using Middleware_App.Core.BusinessModels;
-using Middleware_App.Core.Interfaces;
+﻿using Middleware_App.Core.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
+using Middleware_App.Web.Models;
 
 namespace Middleware_App.Web.Components
 {
     public class CheckContentMiddleware
     {
-        private readonly RequestDelegate _next;
-        private readonly QueryOptions queryPattern;
-        private readonly ICheckQueryService _checkQuery;
-        private const string QueryContent = "QueryString contains denied characters!";
+        private readonly RequestDelegate next;
+        private readonly IOptionsMonitor<QueryOptions> optionsDelegate;
+        private readonly ICheckQueryService checkService;
 
-        public CheckContentMiddleware(RequestDelegate next, IOptions<QueryOptions> options, ICheckQueryService checkQuery)
+        public CheckContentMiddleware(RequestDelegate next, IOptionsMonitor<QueryOptions> optionsDelegate, ICheckQueryService checkService)
         {
-            _next = next;
-            queryPattern = options.Value;
-            _checkQuery = checkQuery;
+            this.next = next;
+            this.optionsDelegate = optionsDelegate;
+            this.checkService = checkService;
         }
         public async Task InvokeAsync(HttpContext context)
         {
-            string queryString = context.Request.QueryString.ToString();
-            if (_checkQuery.CheckContent(queryString, queryPattern.ContentDenied))
+            if (checkService.CheckContent(context.Request.QueryString.Value, optionsDelegate.CurrentValue.ContentDenied))
             {
-                context.Response.StatusCode = 400;
-                await context.Response.WriteAsync(QueryContent);
+                await next.Invoke(context);                
             }
             else
             {
-                await _next.Invoke(context);
+                context.Response.StatusCode = 400;
+                await context.Response.WriteAsync(optionsDelegate.CurrentValue.ContentErrorMessage);
             }
         }
     }

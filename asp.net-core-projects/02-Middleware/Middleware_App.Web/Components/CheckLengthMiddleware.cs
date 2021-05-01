@@ -1,37 +1,35 @@
-﻿using Middleware_App.Core.BusinessModels;
-using Middleware_App.Core.Interfaces;
+﻿using Middleware_App.Core.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
+using Middleware_App.Web.Models;
 
 namespace Middleware_App.Web.Components
 {
     public class CheckLengthMiddleware
     {
-        private readonly RequestDelegate _next;
+        private readonly RequestDelegate next;
+        private readonly IOptionsMonitor<QueryOptions> optionsDelegate;
+        private readonly ICheckQueryService checkService;        
 
-        private readonly QueryOptions queryPattern;
-        private readonly ICheckQueryService _checkQuery;
-        private const string QueryContent = "QueryString is too much!";
-
-        public CheckLengthMiddleware(RequestDelegate next, IOptions<QueryOptions> options, ICheckQueryService checkQuery)
+        public CheckLengthMiddleware(RequestDelegate next, IOptionsMonitor<QueryOptions> optionsDelegate, ICheckQueryService checkService)
         {
-            _next = next;
-            queryPattern = options.Value;
-            _checkQuery = checkQuery;
+            this.next = next;
+            this.optionsDelegate = optionsDelegate;
+            this.checkService = checkService;
         }
 
         public async Task InvokeAsync(HttpContext context)
         {
-            int queryLength = context.Request.QueryString.ToString().Length;
-            if (_checkQuery.CheckLength(queryLength, queryPattern.LengthMax))
+            string query = context.Request.QueryString.Value;
+            if (checkService.CheckLength(query, optionsDelegate.CurrentValue.LengthMax))
             {
-                await _next.Invoke(context);
+                await next.Invoke(context);
             }
             else
             {
                 context.Response.StatusCode = 400;
-                await context.Response.WriteAsync(QueryContent);
+                await context.Response.WriteAsync(optionsDelegate.CurrentValue.LengthErrorMessage);
             }
         }
     }

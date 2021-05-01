@@ -2,7 +2,7 @@
 {
     public interface ICheckQueryService
     {
-        bool CheckLength(int queryLength, int queryMax);
+        bool CheckLength(string queryString, int queryMax);
         bool CheckContent(string queryString, string queryDenied);
     }
 }
